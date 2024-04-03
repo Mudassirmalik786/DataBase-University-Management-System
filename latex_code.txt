@@ -1,0 +1,293 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc} 
+\usepackage{amssymb}
+
+
+\usepackage[margin=0.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\begin{document}
+
+\begin{center}
+\textbf{\large{DB Mid Project}}\\
+\vspace{0.5cm}
+\textbf{\large{ UET Management System}} \\
+\vspace{1cm}
+\includegraphics[height=5cm,width=5cm]{Logo.png}\\
+\vspace{0.5cm}
+\vspace{1.5cm}
+\large\underline{ Project Supervisor}\\
+\vspace{0.5cm}
+Mr. Nazeef Ul Haq\\
+\vspace{1cm}
+\underline{Submitted By}
+
+\begin{center}
+Muhammad Mudassir \\ 2022-CS-32  \\  
+\end{center}
+\vspace{1cm}
+\begin{center}
+    \underline {Date of Submission}
+\end{center}
+\begin{center}
+    March 10, 2024
+\end{center}
+
+
+\vspace{4cm}
+\par\rule{\textwidth}{1pt} 
+Department of Computer Science\\
+University of Engineering and Technology, Lahore\\
+Pakistan
+\end{center}
+
+\newpage
+
+\begin{center}
+    \section{ Acknowledgment}
+\end{center}
+I am thankful to Allah SWT that He provided me strength and power to do this project in time.
+I am thankful to  Mr. Nazeef Ul Haq for the supervision, guidance, he provided
+throughout the project for making out the best project I could, by enlightening me with
+the techniques to manage my work by making a schedule beforehand.
+I would also like to thank Mr. Samyan Wahla for his dedication towards Data
+Base Theory and presenting concepts in a manner that helped me doing this project
+with great ease.
+Moreover, I am fortunate to my mentors who helped me to do this project.
+
+\newpage
+\tableofcontents
+\thispagestyle{empty}
+\pagenumbering{arabic}
+
+\newpage
+
+
+\section{Abstract}
+The primary objective of the midterm project was to illustrate the practical application of databases in addressing real-world challenges. Databases serve as a secure and reliable repository for data storage, mitigating the risks associated with data loss. Furthermore, they facilitate concurrent access by multiple users, enhancing collaboration and efficiency.
+
+The project specifically targeted the optimization of managing Course Learning Outcomes (CLOs) within the Computer Science Department at UET Lahore. Recognizing the inefficiencies inherent in manual management processes, which are time-consuming and error-prone, the project sought to automate these processes. The overarching aim was to develop a desktop application that streamlines student management tasks by enabling users to execute Create, Read, Update, and Delete (CRUD) operations on database schema relations. Additionally, the application was designed to generate comprehensive PDF reports, offering valuable insights to the advisory board for process optimization.
+
+In essence, the project effectively showcased the benefits of leveraging databases in real-world scenarios, demonstrating how automation can revolutionize student management processes. It underscored the critical importance of efficient data management practices and highlighted the transformative potential of automation in improving operational workflows.
+
+\section{Introduction}\label{introduction}
+
+\subsection{Description}
+
+\begin{quote}
+In this Project, the Student record can be added, viewed, and updated. The CLOs are managed in this project and the result of students calculated. According to Rubric and rubric levels, the assessment components are added, viewed and updated . Attendance of the students is managed in this project. Multiple Reports of Attendance and result (according to Assessment wise, Clo wise etc ) are added and generated in this project. This project contains the database concepts, it's connectivity with the visual studio and perform the operation with GUI interface.
+\end{quote}
+\subsection{Motivation}
+
+\begin{quote}
+From the LMS of UET, the idea is to make a C sharp .NET framework project that manages the student attendance, results through CLOs looks professional, and the functionality of the database in generating Multiple Business logic-based records. This project contains User interface for user's better experience.
+\end{quote}
+
+\section{Infrastructure}\label{infrastructure}
+
+\begin{itemize}
+\item
+  The system grants the administrator full access to student
+  information, including the ability to view and modify any records.
+\item
+  The administrator has the authority to create and edit Course Learning
+  Outcomes (CLOs), as well as updating existing ones.
+\item
+  The admin is responsible for assigning marks to students and can alter  any mark-related information.
+\item
+  The administrator can input evaluation data and assign marks to
+  students.
+\item
+  The system allows the administrator to generate PDF reports.
+\end{itemize}
+
+
+\section[Database Design]{Database Design}
+\includegraphics[width=6.22222in,height=6.42917in]{database.png}
+
+\subsection{Student}\label{student}
+
+    Student relation consists of the student information like
+    studentID, RegisterationNumber, Student First and Last Name, Student Status(Active or InActive) 
+
+ \subsection{Student Attendance}\label{student-attendance}
+
+Student Attendance consists of an Attendance id as a primary key that is connected with Class Attendance ID, a student id that is also a primary Key which is connected to student relation  and attendance status ID 
+
+
+\subsection{Class Attendance}\label{class-attendance}
+
+Class attendance consistS of class attendance id and attendance date.
+\subsection{Lookup}\label{lookup}
+
+Lookup Relation consist of lookup id , Category of LookUp Id AND Status.in which lookup id is a primary key.
+
+
+\subsection{Clo}\label{clo}
+
+Clo Relation is a component of student result having clo id as a primary key , title and date created  
+\subsection{Rubric}\label{rubric}
+
+Rubric consist of  id which is a primary key and also its details
+and also Clo id .
+
+\subsection{Rubric Level}\label{rubric-level}
+
+Rubric level consists of id which is the primary key, Rubric id, its
+details and measurement level which is used in student result relation
+
+\subsection{Assessment}\label{assessment}
+
+Assessment consists of assessment id, its title, date created, total
+marks, total weightage. In this relation the assessment id is the primary
+key.
+
+\subsection{Assessment component}\label{assessment-component}
+
+Assessment component Relation is the parts of assessment. This relation consist of assessment component id, Name of component, Rubric id, date created, date updated and assessment id which is the primary key of assessment.
+
+\subsection{Student Result}\label{student-result}
+
+It consists of student id, assessment component id, rubric
+measurement level id and evaluation
+date.In which Student id and assessment component id as a primary key.
+
+\newpage
+\section{Generated Reports}\label{generated-reports}
+Following is a code to generate reports using SAL language.
+\subsection{Attendance Report by date}
+select CONCAT(FirstName,LastName)as \\NAME,RegistrationNumber,Lookup.Name as STATUS,AttendanceDate\\
+from ClassAttendance\\
+join StudentAttendance\\
+on StudentAttendance.AttendanceId=ClassAttendance.Id\\
+join Student\\ 
+on StudentAttendance.StudentId=Student.Id\\
+join Lookup\\
+on LookupId=StudentAttendance.AttendanceStatus\\
+where ClassAttendance.AttendanceDate='{date}'\\
+
+
+\subsection{Assessment wise Result of Student}
+  select     st.StudentId,s.FirstName as Name,
+  \\s.RegistrationNumber as RegNo,Assessment.Title as Assessment,\\
+      st.AssessmentComponentId as ACID ,\\
+      ac.TotalMarks as Marks,    rl.MeasurementLevel,\\
+      max(rl2.MeasurementLevel)  as MaxLevel ,\\
+      Cast (CAST(rl.MeasurementLevel AS FLOAT)/ max( CAST(rl2.MeasurementLevel AS FLOAT) )* ac.TotalMarks as float) as OMarks\\
+        from StudentResult as st  \\
+  join Student as s    on st.StudentId=s.Id\\  
+  join AssessmentComponent as ac    \\
+  on ac.Id=st.AssessmentComponentId   \\ 
+  join Rubric as r    on r.Id=ac.RubricId\\  
+  join RubricLevel as rl    on rl.Id=st.RubricMeasurementId  \\ 
+  join RubricLevel as rl2    on rl2.RubricId=r.Id   \\
+  join Assessment    on Assessment.Id=ac.AssessmentId \\  
+  group by st.StudentId,st.AssessmentComponentId,ac.TotalMarks,rl.MeasurementLevel,s.FirstName,s.RegistrationNumber,Assessment.Title\\
+
+\subsection{Clo Wise Result of Students(who attempts Assessments)}
+SELECT S.RegistrationNumber,  SUM(AC.TotalMarks)AS \\TotalMarks,Cast(SUM(((RL.MeasurementLevel / (RL.Maximum * \\1.0)) * AC.TotalMarks))as int) AS ObtainedMarks FROM \\Student S  JOIN StudentResult SR ON S.Id = SR.StudentId  \\JOIN AssessmentComponent AC ON AC.Id = \\SR.AssessmentComponentId  JOIN Assessment A ON A.Id = \\AC.AssessmentId  JOIN Rubric R ON R.Id = AC.RubricId  \\JOIN Clo C ON C.Id = R.CloId  JOIN (SELECT Id, RubricId, \\MeasurementLevel, R.Maximum FROM RubricLevel,           \\(SELECT RubricId AS RID, MAX(RubricLevel.MeasurementLevel) AS \\Maximum              FROM RubricLevel GROUP BY RubricId) AS \\R             WHERE RubricLevel.RubricId = R.RID) AS \\RL ON SR.RubricMeasurementId = RL.ID GROUP BY \\S.RegistrationNumber 
+\subsection{Clo Wise Marks in Assessment Components of Students}
+    select   Concat(s.FirstName,s.LastName) as StudentName
+	\\, s.RegistrationNumber,Clo.Name,Assessment.Title,\\
+	  ac.name as AComponent,    ac.TotalMarks as totalmarks,\\
+	      Cast (CAST(rl.MeasurementLevel AS FLOAT)/\\
+		  max( CAST(rl2.MeasurementLevel AS FLOAT) )* ac.TotalMarks as float) as Obtainedarks \\
+		  from StudentResult as st   \\
+		  join Student as s    on st.StudentId=s.Id \\ 
+		  join AssessmentComponent as ac    on ac.Id=st.AssessmentComponentId  \\
+		  join Rubric as r    on r.Id=ac.RubricId    join RubricLevel as rl \\
+		  on rl.Id=st.RubricMeasurementId    join RubricLevel as rl2    on rl2.RubricId=r.Id\\  
+		  join Assessment    on Assessment.Id=ac.AssessmentId    join Clo    on r.CloId=Clo.Id \\   
+		  group by st.AssessmentComponentId,ac.TotalMarks,rl.MeasurementLevel,\\
+		  Concat(s.FirstName,s.LastName),s.RegistrationNumber,Clo.Name,ac.Name,Assessment.Title\\ 
+
+\subsection{
+Total Result of a Specific Student in Assesment}
+  select  s.FirstName as StudentName, s.RegistrationNumber,
+  \\Assessment.Title,ac.Name as AssComp, 
+  ac.TotalMarks as totalmarks,rl.MeasurementLevel as OLevel,\\
+  max(rl2.MeasurementLevel)  as MaxLevel ,\\ 
+  Cast (CAST(rl.MeasurementLevel AS FLOAT)/ \\
+  max( CAST(rl2.MeasurementLevel AS FLOAT) )* ac.TotalMarks as float)\\
+  as Obtainedarks \\
+  from StudentResult as st\\  
+  join Student as s    on st.StudentId=s.Id \\ 
+  join AssessmentComponent as ac    on ac.Id=st.AssessmentComponentId\\
+  join Rubric as r    on r.Id=ac.RubricId   \\
+  join RubricLevel as rl\\
+  on rl.Id=st.RubricMeasurementId    join RubricLevel as rl2 \\   
+  on rl2.RubricId=r.Id    join Assessment    on Assessment.Id=ac.AssessmentId\\   
+  where Assessment.Title='{LBLX.Text}' \\
+  and s.RegistrationNumber='{x}'      \\
+    group by ac.Name,ac.TotalMarks,rl.MeasurementLevel,s.FirstName\\
+	,s.RegistrationNumber,Assessment.Title\\   
+ \newpage
+\section{User Interface of Application}
+\includegraphics[width=17.33cm,height=9.08cm]{UI.jpg}\\
+\begin{center}
+    \begin{quote}
+    \begin{center}
+        Fig.7.1  Main UI form of Application 
+    \end{center}
+    
+    \end{quote}
+\end{center}
+
+
+\section{Testing}\label{testing}
+
+
+Testing was done with every step of the project because data was linked
+with every other component so resolving issues on the lower steps
+guaranteed the top levels to be tested accurately. The queries that were
+integrated in the application were tested through the SQL Server.
+Queries were written in the SQL Server and their outputs were checked.
+After testing, the queries were integrated with the GUI. Visual Studio
+debugger was handy in removing bugs from the code. The application was
+made responsive by playing around with the anchors of the objects.
+
+\section{Limitations}\label{limitations}
+
+Following are the limitations of the project:
+
+\begin{itemize}
+
+\item
+  No login form is present and thus anyone can access the application,
+  making the data to be insecure.
+\item
+ Delete Feature is not added
+\item
+  The reports generated were not according to the format and contain some errors in code.
+\end{itemize}
+
+\section{Future Work}\label{future-work}
+
+The future work that can be done on the project are enlisted below:
+
+\begin{itemize}
+\item
+  Making of a Sign in / Sign up form.
+\item
+  Students can be given access to the application, from where they can
+  view their evaluation details.
+\item
+  Teachers can be given access, to view the student's progress.
+\item
+  Formatting of reports can be done according to the designed template
+  of the department and more organizably.
+\item
+  The UI will be improved to user control in future.
+\end{itemize}
+
+
+
+
+\end{document}
+
+
+\end{document}
+
